@@ -34,3 +34,6 @@ build/
 
 ### Spring ###
 **/application.properties
+
+### Libraries ###
+lib
