@@ -8,12 +8,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @EnableWebMvc
 public class Config implements WebMvcConfigurer {
-  
+
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
     registry
       .addResourceHandler("/resources/css/*")
-      .addResourceLocations("classpath:/css/");
+      .addResourceLocations("classpath:/static/css/");
+    registry
+      .addResourceHandler("/resources/js/*")
+      .addResourceLocations("classpath:/static/js/");
   }
 
 }

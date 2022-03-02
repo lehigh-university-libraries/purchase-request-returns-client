@@ -4,11 +4,10 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Barcode Scanner for Purchase Requests</title>
+    <title>Barcode Scanner - Purchase Request Workflow</title>
     <link rel="stylesheet" href="../resources/css/styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/credentials.js"></script>
-    <script type="text/javascript" src="../js/app.js"></script>
+    <script type="text/javascript" src="../resources/js/app.js"></script>
 </head>
 
 <body class=>
@@ -23,7 +22,38 @@
 
                     <h1 class="title">Barcode Scanner for Purchase Requests</h1>
 
-                    <p th:text="'Hello, ' + ${name} + '!'" />
+                    <!-- <p th:text="'Hello, ' + ${name} + '!'" /> -->
+
+                    <p class="subtitle">
+                        Purchase Request Workflow
+                    </p>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <p class="card-header-title">Scan a Return Slip Barcode</p>
+                        </div>
+
+                        <div class="card-content">
+
+                            <form action="">
+
+                                <div class="field">
+                                    <label class="label" for="barcode_input">Barcode</label>
+                                    <div class="control">
+                                        <input class="input" type="text" placeholder="Scan barcode" id="barcode_input">
+                                    </div>
+                                </div>
+
+                                <div class="buttons">
+                                    <input type="submit" class="button is-primary" value="Search">
+                                </div>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
 
                 </div>
             </main>
