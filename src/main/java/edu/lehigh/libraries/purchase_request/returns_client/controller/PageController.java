@@ -1,4 +1,4 @@
-package edu.lehigh.libraries.purchase_request.returns_client;
+package edu.lehigh.libraries.purchase_request.returns_client.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
-public class ReturnsController {
+public class PageController {
 
 	@GetMapping("/")
 	public String welcomeSimple(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
