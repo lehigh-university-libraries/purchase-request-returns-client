@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 public class CoverImagesService {
   
     public String getCoverImage(String isbn) {
-        return "https://covers.openlibrary.org/b/isbn/" + isbn + "-L.jpg";
+        return "https://covers.openlibrary.org/b/isbn/" + isbn + "-M.jpg";
     }
 
 }

@@ -10,8 +10,8 @@ $primary: $rocky-rapids-blue;
 $widescreen-enabled: false;
 $fullhd-enabled: false;
 
-.is-fullheight-100vh {
-  height: 100vh;
+#search_result_dialog img {
+  margin-top: 1rem;
 }
 
 // @import "../lib/bulma-0.9.3/bulma/bulma.sass";
@@ -25,6 +25,7 @@ $fullhd-enabled: false;
 @import "../lib/bulma-0.9.3/bulma/sass/elements/other.sass";
 @import "../lib/bulma-0.9.3/bulma/sass/elements/content.sass";
 @import "../lib/bulma-0.9.3/bulma/sass/components/card.sass";
+@import "../lib/bulma-0.9.3/bulma/sass/components/modal.sass";
 @import "../lib/bulma-0.9.3/bulma/sass/form/_all.sass";
 @import "../lib/bulma-0.9.3/bulma/sass/layout/section.sass";
 @import "../lib/bulma-0.9.3/bulma/sass/layout/footer.sass";

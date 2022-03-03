@@ -6,13 +6,31 @@ $(document).ready(function () {
 });
 
 function initListeners() {
+	// search form submitted
 	$("form").on("submit", function (event) {
 		searchBarcode();
 		event.preventDefault();
 	});
 
+	// barcode text input changed
 	$("#barcode_input").on("input", function(event) {
 		barcodeChanged();
+	});
+
+	initDialogListeners();
+}
+
+function initDialogListeners() {
+	// various methods of closing the search dialog
+	$(".modal-background, .modal-card-head .delete").each(function(index, element) {
+		$(element).on("click", function(event) { 
+			closeSearchResults();
+		})
+	})
+	$(document).on("keydown", function(event) {
+		if (event.keyCode === 27) { // Escape key
+			closeSearchResults();
+		}
 	});
 }
 
@@ -42,5 +60,15 @@ function barcodeChanged() {
 }
 
 function displaySearchResult(data) {
-	alert("Got result: " + JSON.stringify(data));
+	let dialog = $("#search_result_dialog");
+	$(".modal-card-title", dialog).text(data['title']);
+	$(".contributor", dialog).text(data['contributor']);
+	$(".isbn", dialog).text(data['isbn']);
+	$("img", dialog).attr("src", data['coverImage']);
+	dialog.addClass("is-active");
+	$("button .is-success", dialog).focus();
+}
+
+function closeSearchResults() {
+	$("#search_result_dialog").removeClass("is-active");
 }

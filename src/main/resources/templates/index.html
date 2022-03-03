@@ -12,7 +12,7 @@
 
 <body class=>
 
-    <div class="columns is-flex-direction-column is-fullheight-100vh">
+    <div class="columns is-flex-direction-column">
 
         <div class="column">
 
@@ -60,6 +60,29 @@
 
         </div>
 
+    </div>
+
+    <div id="search_result_dialog" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Title</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <p>
+                    <span class="contributor"></span>
+                </p>
+                <p>
+                    ISBN: <span class="isbn"></span>
+                </p>
+                <img src="">
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-success">Request Item</button>
+                <button class="button">Cancel</button>
+            </footer>
+        </div>
     </div>
 
 </body>
