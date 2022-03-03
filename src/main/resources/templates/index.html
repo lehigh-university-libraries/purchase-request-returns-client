@@ -70,13 +70,25 @@
                 <button class="delete" aria-label="close"></button>
             </header>
             <section class="modal-card-body">
-                <p>
-                    <span class="contributor"></span>
-                </p>
-                <p>
-                    ISBN: <span class="isbn"></span>
-                </p>
-                <img src="">
+                <div class="columns is-reversed-mobile">
+                    <div class="column is-narrow">
+                        <img src="">
+                    </div>
+                    <div class="column">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Contributor:</th>
+                                    <td><span class="contributor"></span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">ISBN:</th>
+                                    <td><span class="isbn"></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </section>
             <footer class="modal-card-foot">
                 <button class="button is-success">Request Item</button>
