@@ -21,6 +21,10 @@ function initListeners() {
 }
 
 function initDialogListeners() {
+	$("#request_item_button").on("click", function (event) {
+		requestItem();
+	});
+
 	// various methods of closing the search dialog
 	$(".modal-background, .modal-card-head .delete").each(function(index, element) {
 		$(element).on("click", function(event) { 
@@ -35,20 +39,19 @@ function initDialogListeners() {
 }
 
 function searchBarcode() {
-	let barcode = $('#barcode_input').val();
 	let request_data = {
-		"barcode": barcode,
+		"barcode": $('#barcode_input').val(),
 	};
 	$.ajax({
 		url: document.location.origin + "/search",
 		contentType: 'application/json',
 		data: request_data,
 		success: function (data, status, xhr) {
-			console.log("call succeeded");
+			console.log("Search call succeeded");
 			displaySearchResult(data);
 		},
 		error: function (xhr, status, error) {
-			console.log("failed with status " + status + " and error: " + error);
+			console.log("Search failed with status " + status + " and error: " + error);
 		}
 	});
 }
@@ -66,9 +69,40 @@ function displaySearchResult(data) {
 	$(".isbn", dialog).text(data['isbn']);
 	$("img", dialog).attr("src", data['coverImage']);
 	dialog.addClass("is-active");
-	$("button .is-success", dialog).focus();
+	$("#request_item_button", dialog).focus();
+	console.log("displayed result");
 }
 
 function closeSearchResults() {
+	$('#barcode_input').val("");
+	$("#barcode_input").focus();
+
 	$("#search_result_dialog").removeClass("is-active");
+	let button = $("#request_item_button");
+	button.prop("disabled", false);
+	button.html(button.data("enabled-text"));
+}
+
+function requestItem() {
+	let button = $("#request_item_button");
+	button.prop("disabled", true);
+	button.html(button.data("disabled-text"));
+
+	let request_data = {
+		"barcode": $('#barcode_input').val(),
+	};
+	$.ajax({
+		url: document.location.origin + "/request",
+		method: "POST",
+		contentType: 'application/json',
+		data: JSON.stringify(request_data),
+		success: function (data, status, xhr) {
+			console.log("Request call succeeded");
+			closeSearchResults();
+		},
+		error: function (xhr, status, error) {
+			console.log("Request call failed with status " + status + " and error: " + error);
+		}
+	});
+
 }

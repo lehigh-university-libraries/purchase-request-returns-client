@@ -35,6 +35,7 @@ public class SecurityConfig {
 		if (disableSecurity) {
 			log.warn("Security is DISABLED");
 			httpSecurity
+					.csrf().disable()
 					.httpBasic().disable();
 		} else {
 			httpSecurity

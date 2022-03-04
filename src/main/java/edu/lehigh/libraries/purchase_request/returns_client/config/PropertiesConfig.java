@@ -14,6 +14,7 @@ import lombok.Setter;
 public class PropertiesConfig {
     
     private Database db;
+    private WorkflowServer workflowServer;
 
     /**
      * Disables all security.  DO NOT USE IN PRODUCTION.
@@ -45,6 +46,26 @@ public class PropertiesConfig {
 
         /**
          * Database password
+         */
+        private String password;
+
+    }
+
+    @Getter @Setter
+    public static class WorkflowServer {
+
+        /**
+         * Workflow Proxy Server url to post a new purchase request
+         */
+        private String postPurchaseRequestsUrl;
+
+        /**
+         * Workflow Proxy Server username
+         */
+        private String username;
+
+        /**
+         * Workflow Proxy Server password
          */
         private String password;
 
