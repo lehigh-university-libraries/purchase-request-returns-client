@@ -10,11 +10,20 @@ $primary: $rocky-rapids-blue;
 $widescreen-enabled: false;
 $fullhd-enabled: false;
 
-$table-cell-border: none;
+// $table-cell-border: none;
+
+#search_result_details {
+	td, th {
+		border: none;
+	}
+}
 
 // @import "../lib/bulma-0.9.3/bulma/bulma.sass";
 @import "../lib/bulma-0.9.3/bulma/sass/utilities/_all.sass";
 @import "../lib/bulma-0.9.3/bulma/sass/base/_all.sass";
+
+$section-padding-desktop: 0 1.5rem 3rem;
+
 @import "../lib/bulma-0.9.3/bulma/sass/grid/columns.sass";
 @import "../lib/bulma-0.9.3/bulma/sass/elements/button.sass";
 @import "../lib/bulma-0.9.3/bulma/sass/elements/container.sass";
@@ -26,9 +35,11 @@ $table-cell-border: none;
 @import "../lib/bulma-0.9.3/bulma/sass/components/card.sass";
 @import "../lib/bulma-0.9.3/bulma/sass/components/modal.sass";
 @import "../lib/bulma-0.9.3/bulma/sass/form/_all.sass";
+@import "../lib/bulma-0.9.3/bulma/sass/layout/hero.sass";
 @import "../lib/bulma-0.9.3/bulma/sass/layout/section.sass";
 @import "../lib/bulma-0.9.3/bulma/sass/layout/footer.sass";
 @import "../lib/bulma-0.9.3/bulma/sass/helpers/typography.sass";
+@import "../lib/bulma-0.9.3/bulma/sass/helpers/color.sass";
 @import "../lib/bulma-0.9.3/bulma/sass/helpers/flexbox.sass";
 
 #search_result_dialog .modal-card-body .columns.is-reversed-mobile {

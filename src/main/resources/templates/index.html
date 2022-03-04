@@ -16,17 +16,18 @@
 
         <div class="column">
 
-            <main class="section">
-
-                <div class="container">
-
+            <section class="hero">
+                <div class="hero-body">
                     <h1 class="title">Barcode Scanner for Purchase Requests</h1>
-
-                    <!-- <p th:text="'Hello, ' + ${name} + '!'" /> -->
-
                     <p class="subtitle">
                         Purchase Request Workflow
                     </p>
+                </div>
+            </section>
+
+            <main class="section">
+
+                <div class="container">
 
                     <div class="card">
                         <div class="card-header">
@@ -58,6 +59,44 @@
                 </div>
             </main>
 
+            <aside class="section">
+
+                <div class="container">
+
+                    <div class="card has-background-info-light">
+                        <div class="card-header">
+                            <p class="card-header-title">Recent Purchase Requests</p>
+                        </div>
+
+                        <div class="card-content">
+
+                            <table class="table has-background-info-light">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Title</th>
+                                        <th>Contributor</th>
+                                        <th>ISBN</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="date">October 14th, 4:11 p.m.</span></td>
+                                        <td><span class="item_title">Some Title</span></td>
+                                        <td><span class="contributor">Some Author</span></td>
+                                        <td><span class="isbn">1234578</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+    
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </aside>
+
         </div>
 
     </div>
@@ -75,7 +114,7 @@
                         <img src="">
                     </div>
                     <div class="column">
-                        <table class="table">
+                        <table class="table" id="search_result_details">
                             <tbody>
                                 <tr>
                                     <th scope="row">Contributor:</th>
