@@ -1,8 +1,11 @@
 package edu.lehigh.libraries.purchase_request.returns_client.controller;
 
+import java.util.List;
+
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.lehigh.libraries.purchase_request.model.PurchaseRequest;
 import edu.lehigh.libraries.purchase_request.returns_client.model.ReturnedItem;
 import edu.lehigh.libraries.purchase_request.returns_client.service.ReturnedItemService;
 import edu.lehigh.libraries.purchase_request.returns_client.service.WorkflowService;
@@ -40,14 +44,16 @@ public class AjaxController {
     }
 
     @PostMapping("/request")
-    ResponseEntity<ReturnedItem> requestItem(@RequestBody String barcode) {
+    ResponseEntity<ReturnedItem> requestItem(@RequestBody String barcode, Authentication authentication) {
         log.info("Request: POST /request " + barcode);
         ReturnedItem returnedItem = returnedItemService.findByBarcode(barcode);
         if (returnedItem == null) {
             return ResponseEntity.notFound().build();
         }
 
-        log.info("Requesting purchase: " + returnedItem);
+        String reporterName = authentication.getName();
+        returnedItem.setReporterName(reporterName);
+        log.info("Reporter " + reporterName + " requesting purchase: " + returnedItem);
 
         try {
             workflowService.submitRequest(returnedItem);
@@ -60,4 +66,12 @@ public class AjaxController {
         return new ResponseEntity<ReturnedItem>(returnedItem, HttpStatus.CREATED);
     }
 
+    @GetMapping("/requestHistory")
+    ResponseEntity<List<PurchaseRequest>> getRequestHistory(Authentication authentication) {
+        log.info("Request: GET /requestHistory");
+        String reporterName = authentication.getName();
+        List<PurchaseRequest> history = workflowService.getHistory(reporterName);
+        return new ResponseEntity<List<PurchaseRequest>>(history, HttpStatus.OK);
+    }
+ 
 }

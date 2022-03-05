@@ -22,4 +22,6 @@ public class ReturnedItem {
 
     private String coverImage;
 
+    private String reporterName;
+
 }

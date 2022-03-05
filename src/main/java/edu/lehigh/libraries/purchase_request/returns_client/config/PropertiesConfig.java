@@ -55,9 +55,9 @@ public class PropertiesConfig {
     public static class WorkflowServer {
 
         /**
-         * Workflow Proxy Server url to post a new purchase request
+         * Workflow Proxy Server base url for API calls
          */
-        private String postPurchaseRequestsUrl;
+        private String baseUrl;
 
         /**
          * Workflow Proxy Server username
