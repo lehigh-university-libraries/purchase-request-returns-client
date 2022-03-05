@@ -1,0 +1,8 @@
+<tbody th:fragment="history">
+    <tr th:fragment="history" th:each="item : ${history}">
+        <td><span class="date" th:text="${item.creationDate}">October 14th, 4:11 p.m.</span></td>
+        <td><span class="item_title" th:text="${item.title}">Some Title</span></td>
+        <td><span class="contributor" th:text="${item.contributor}">Some Author</span></td>
+        <td><span class="isbn" th:text="${item.isbn}">1234578</span></td>
+    </tr>    
+</tbody>

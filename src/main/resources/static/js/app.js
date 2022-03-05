@@ -3,6 +3,8 @@ $(document).ready(function () {
 
 	// Grab focus on input field.
 	$("#barcode_input").focus();
+
+	loadHistory();
 });
 
 function initListeners() {
@@ -104,5 +106,18 @@ function requestItem() {
 			console.log("Request call failed with status " + status + " and error: " + error);
 		}
 	});
+}
 
+function loadHistory() {
+	$.ajax({
+		url: document.location.origin + "/requestHistory",
+		contentType: 'application/json',
+		success: function (tbody, status, xhr) {
+			console.log("History call succeeded", tbody);
+			$("#history_table tbody").replaceWith(tbody);
+		},
+		error: function (xhr, status, error) {
+			console.log("History failed with status " + status + " and error: " + error);
+		}
+	});
 }
