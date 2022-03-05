@@ -1,6 +1,7 @@
 package edu.lehigh.libraries.purchase_request.returns_client.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import edu.lehigh.libraries.purchase_request.returns_client.model.ReturnedItem;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
+@ConditionalOnWebApplication
 @Slf4j
 public class WorkflowService {
 

@@ -1,5 +1,6 @@
 package edu.lehigh.libraries.purchase_request.returns_client.controller;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -15,6 +16,7 @@ import edu.lehigh.libraries.purchase_request.returns_client.service.WorkflowServ
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
+@ConditionalOnWebApplication
 @Validated
 @Slf4j
 public class AjaxController {
