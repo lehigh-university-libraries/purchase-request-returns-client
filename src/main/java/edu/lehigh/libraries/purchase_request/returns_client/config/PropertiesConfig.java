@@ -14,6 +14,7 @@ import lombok.Setter;
 public class PropertiesConfig {
     
     private Database db;
+    private Illiad illiad;
     private WorkflowServer workflowServer;
 
     /**
@@ -48,6 +49,23 @@ public class PropertiesConfig {
          * Database password
          */
         private String password;
+
+    }
+
+    @Getter @Setter
+    public static class Illiad {
+
+        /**
+         * URL of the ILLiad API
+         */
+        private String baseUrl;
+
+        /**
+         * Private key.  
+         * 
+         * See https://support.atlas-sys.com/hc/en-us/articles/360011809334
+         */
+        private String apiKey;
 
     }
 

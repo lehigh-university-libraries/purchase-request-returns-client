@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import edu.lehigh.libraries.purchase_request.returns_client.model.ReturnedItem;
 import edu.lehigh.libraries.purchase_request.returns_client.service.ReturnedItemService;
 import edu.lehigh.libraries.purchase_request.returns_client.service.WorkflowService;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -40,8 +42,15 @@ public class AjaxController {
         return new ResponseEntity<ReturnedItem>(returnedItem, HttpStatus.OK);
     }
 
+    @Getter
+    @Setter
+    static class BarcodeContainer {
+        private String barcode;
+    }
+
     @PostMapping("/request")
-    ResponseEntity<ReturnedItem> requestItem(@RequestBody String barcode, Authentication authentication) {
+    ResponseEntity<ReturnedItem> requestItem(@RequestBody BarcodeContainer container , Authentication authentication) {
+        String barcode = container.getBarcode();
         log.info("Request: POST /request " + barcode);
         ReturnedItem returnedItem = returnedItemService.findByBarcode(barcode);
         if (returnedItem == null) {
