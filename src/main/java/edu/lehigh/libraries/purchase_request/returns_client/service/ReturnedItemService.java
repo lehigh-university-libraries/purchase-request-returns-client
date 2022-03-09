@@ -16,14 +16,24 @@ public class ReturnedItemService {
 		loanServices = new LinkedList<LoanService>();
 	}
 
-	public ReturnedItem findByBarcode(String barcode) {
+	public ReturnedItem findByBarcode(String barcode) throws LoanServiceException {
 		for (LoanService service : loanServices) {
 			if (service.handlesBarcode(barcode)) {
 				ReturnedItem item = service.getReturnedItem(barcode);
+				checkItemSufficient(item);
 				return item;
 			}
 		}
-		return null;
+		throw new ItemNotFoundException("Could not identify a service that handles barcodes like: " + barcode);
+	}
+
+	private void checkItemSufficient(ReturnedItem item) throws IncompleteItemException {
+		if (item.getIsbn() == null) {
+			throw new IncompleteItemException("No ISBN found for item.");
+		}
+		if (item.getTitle() == null) {
+			throw new IncompleteItemException("No title found for item.");
+		}
 	}
 
 	public void addLoanService(LoanService service) {

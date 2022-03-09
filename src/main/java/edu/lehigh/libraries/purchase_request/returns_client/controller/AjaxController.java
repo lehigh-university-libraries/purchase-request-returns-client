@@ -9,9 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import edu.lehigh.libraries.purchase_request.returns_client.model.ReturnedItem;
+import edu.lehigh.libraries.purchase_request.returns_client.service.IncompleteItemException;
+import edu.lehigh.libraries.purchase_request.returns_client.service.ItemNotFoundException;
+import edu.lehigh.libraries.purchase_request.returns_client.service.LoanServiceException;
 import edu.lehigh.libraries.purchase_request.returns_client.service.ReturnedItemService;
 import edu.lehigh.libraries.purchase_request.returns_client.service.WorkflowService;
 import lombok.Getter;
@@ -33,13 +38,33 @@ public class AjaxController {
     }
 
     @GetMapping("/search")
-    ResponseEntity<ReturnedItem> getReturnedItem(@RequestParam String barcode) {
+    @ResponseBody
+    ReturnedItem getReturnedItem(@RequestParam String barcode) {
         log.info("Request: GET /search/" + barcode);
-        ReturnedItem returnedItem = returnedItemService.findByBarcode(barcode);
-        if (returnedItem == null) {
-            return ResponseEntity.notFound().build();
+        ReturnedItem returnedItem = findItem(barcode);
+        return returnedItem;
+    }
+
+    private ReturnedItem findItem(String barcode) {
+        ReturnedItem returnedItem;
+        try {
+            returnedItem = returnedItemService.findByBarcode(barcode);
+            if (returnedItem == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The barcode was not found.");
+            }
         }
-        return new ResponseEntity<ReturnedItem>(returnedItem, HttpStatus.OK);
+        catch (ItemNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The barcode was not found.", e);
+        }        
+        catch (IncompleteItemException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, 
+                "The loan service does not have enough description of this item to create a purchase request.", e);
+        }
+        catch (LoanServiceException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, 
+                "Error getting data from a loan service.", e);
+        }
+        return returnedItem;
     }
 
     @Getter
@@ -52,10 +77,7 @@ public class AjaxController {
     ResponseEntity<ReturnedItem> requestItem(@RequestBody BarcodeContainer container , Authentication authentication) {
         String barcode = container.getBarcode();
         log.info("Request: POST /request " + barcode);
-        ReturnedItem returnedItem = returnedItemService.findByBarcode(barcode);
-        if (returnedItem == null) {
-            return ResponseEntity.notFound().build();
-        }
+        ReturnedItem returnedItem = findItem(barcode);
 
         String reporterName = authentication.getName();
         returnedItem.setReporterName(reporterName);

@@ -6,6 +6,6 @@ public interface LoanService {
   
     boolean handlesBarcode(String barcode);
 
-    ReturnedItem getReturnedItem(String barcode);
+    ReturnedItem getReturnedItem(String barcode) throws LoanServiceException;
 
 }

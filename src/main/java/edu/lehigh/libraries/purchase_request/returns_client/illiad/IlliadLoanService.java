@@ -17,6 +17,7 @@ import edu.lehigh.libraries.purchase_request.returns_client.config.PropertiesCon
 import edu.lehigh.libraries.purchase_request.returns_client.model.ReturnedItem;
 import edu.lehigh.libraries.purchase_request.returns_client.service.CoverImagesService;
 import edu.lehigh.libraries.purchase_request.returns_client.service.LoanService;
+import edu.lehigh.libraries.purchase_request.returns_client.service.LoanServiceException;
 import edu.lehigh.libraries.purchase_request.returns_client.service.ReturnedItemService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -72,7 +73,7 @@ public class IlliadLoanService implements LoanService {
     }
 
     @Override
-    public ReturnedItem getReturnedItem(String barcode) {
+    public ReturnedItem getReturnedItem(String barcode) throws LoanServiceException {
         String url = BASE_URL + "/Transaction/" + barcode;
         HttpUriRequest getRequest = RequestBuilder.get()
             .setUri(url)
@@ -91,18 +92,25 @@ public class IlliadLoanService implements LoanService {
         }
         catch (Exception e) {
             log.error("Could not get book data from ILLiad.", e);
-            return null;
+            throw new LoanServiceException("Could not get book data from ILLiad.");
         }
         // int responseCode = response.getStatusLine().getStatusCode();
         JSONObject jsonObject = new JSONObject(responseString);
 
         ReturnedItem item = new ReturnedItem();
-        item.setIsbn(jsonObject.getString(ISBN_KEY));
+        item.setIsbn(getIlliadString(ISBN_KEY, jsonObject));
         item.setBarcode(barcode);
-        item.setTitle(jsonObject.getString(TITLE_KEY));
-        item.setContributor(jsonObject.getString(CONTRIBUTOR_KEY));
+        item.setTitle(getIlliadString(TITLE_KEY, jsonObject));
+        item.setContributor(getIlliadString(CONTRIBUTOR_KEY, jsonObject));
         item.setCoverImage(coverImages.getCoverImage(item.getIsbn()));
         return item;
+    }
+
+    private String getIlliadString(String key, JSONObject jsonObject){
+        if (jsonObject.has(key) && !jsonObject.isNull(key)) {
+            return jsonObject.getString(key);
+        }
+        return null;
     }
 
 }

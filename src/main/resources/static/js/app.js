@@ -28,14 +28,14 @@ function initDialogListeners() {
 	});
 
 	// various methods of closing the search dialog
-	$(".modal-background, .modal-card-head .delete").each(function(index, element) {
+	$(".modal-background, .modal-card-head .delete, .cancel_button").each(function(index, element) {
 		$(element).on("click", function(event) { 
-			closeSearchResults();
+			closeDialog();
 		})
 	})
 	$(document).on("keydown", function(event) {
 		if (event.keyCode === 27) { // Escape key
-			closeSearchResults();
+			closeDialog();
 		}
 	});
 }
@@ -53,7 +53,13 @@ function searchBarcode() {
 			displaySearchResult(data);
 		},
 		error: function (xhr, status, error) {
-			console.log("Search failed with status " + status + " and error: " + error);
+			console.log("Search failed with status " + xhr.status + " and error: " + error);
+			if (xhr.status == 404) {
+				displayError("Item not found", xhr.responseJSON.message)
+			}
+			else if (xhr.status = 409) {
+				displayError("Item incomplete", xhr.responseJSON.message);
+			}
 		}
 	});
 }
@@ -75,11 +81,21 @@ function displaySearchResult(data) {
 	console.log("displayed result");
 }
 
-function closeSearchResults() {
+function displayError(heading, content) {
+	let dialog = $("#error_dialog");
+	$(".modal-card-title", dialog).text(heading);
+	$(".error_message", dialog).text(content);
+	dialog.addClass("is-active");
+	$(".cancel_button", dialog).focus();
+	console.log("displayed error");
+}
+
+function closeDialog() {
 	$('#barcode_input').val("");
 	$("#barcode_input").focus();
 
 	$("#search_result_dialog").removeClass("is-active");
+	$("#error_dialog").removeClass("is-active");
 	let button = $("#request_item_button");
 	button.prop("disabled", false);
 	button.html(button.data("enabled-text"));

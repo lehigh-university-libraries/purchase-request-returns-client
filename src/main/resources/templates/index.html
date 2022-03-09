@@ -131,7 +131,23 @@
                     data-disabled-text="Requesting...">
                     Request Item
                 </button>
-                <button class="button">Cancel</button>
+                <button class="button cancel_button">Cancel</button>
+            </footer>
+        </div>
+    </div>
+
+    <div id="error_dialog" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Title</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <p class="error_message"></p>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button cancel_button">Cancel</button>
             </footer>
         </div>
     </div>
