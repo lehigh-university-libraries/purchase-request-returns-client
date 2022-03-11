@@ -61,24 +61,11 @@ function searchBarcode() {
 			},
 			400: function(xhr, status, error) {
 				displayError("Invalid barcode", xhr.responseText);
-			}
+			},
+			500: function(xhr, status, error) {
+				displayError("Server error", xhr.responseText);
+			},
 		}
-		// error: function (xhr, status, error) {
-		// 	// console.log("Search failed with status " + xhr.status + " and error: " + error);
-		// 	console.log("Search failed with status " + status + " and error: " + error);
-		// 	if (xhr.status == 404) {
-		// 		displayError("Item not found", xhr.responseJSON.message);
-		// 	}
-		// 	else if (xhr.status = 409) {
-		// 		displayError("Item incomplete", xhr.responseJSON.message);
-		// 	}
-		// 	else if (xhr.status = 400) {
-		// 		displayError("Invalid barcode", xhr.responseText);
-		// 	}
-		// 	else {
-		// 		displayError("Unexpected error", xhr.responseText);
-		// 	}
-		// }
 	});
 }
 
@@ -100,6 +87,9 @@ function displaySearchResult(data) {
 }
 
 function displayError(heading, content) {
+	// close any dialogs still open
+	closeDialog();
+
 	let dialog = $("#error_dialog");
 	$(".modal-card-title", dialog).text(heading);
 	$(".error_message", dialog).text(content);
@@ -137,8 +127,20 @@ function requestItem() {
 			closeDialog();
 			loadHistory();
 		},
-		error: function (xhr, status, error) {
-			console.log("Request call failed with status " + status + " and error: " + error);
+		// TODO clean redundancy with search errors above
+		statusCode: {
+			404: function(xhr, status, error) {
+				displayError("Item not found", xhr.responseJSON.message);
+			},
+			409: function(xhr, status, error) {
+				displayError("Item incomplete", xhr.responseJSON.message);
+			},
+			400: function(xhr, status, error) {
+				displayError("Invalid barcode", xhr.responseText);
+			},
+			500: function(xhr, status, error) {
+				displayError("Server error", xhr.responseText);
+			}
 		}
 	});
 }
