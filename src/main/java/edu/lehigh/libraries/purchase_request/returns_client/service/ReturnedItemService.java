@@ -39,9 +39,6 @@ public class ReturnedItemService {
 	}
 
 	private void checkItemSufficient(ReturnedItem item) throws IncompleteItemException {
-		if (item.getIsbn() == null) {
-			throw new IncompleteItemException("No ISBN found for item.");
-		}
 		if (item.getTitle() == null) {
 			throw new IncompleteItemException("No title found for item.");
 		}

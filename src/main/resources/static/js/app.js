@@ -79,11 +79,18 @@ function displaySearchResult(data) {
 	let dialog = $("#search_result_dialog");
 	$(".modal-card-title", dialog).text(data['title']);
 	$(".contributor", dialog).text(data['contributor']);
-	$(".isbn", dialog).text(data['isbn']);
+	$(".isbn", dialog).text(format(data['isbn']));
 	$("img", dialog).attr("src", data['coverImage']);
 	dialog.addClass("is-active");
 	$("#request_item_button", dialog).focus();
 	console.log("displayed result");
+}
+
+function format(field) {
+	if (field != null) {
+		return field;
+	}
+	return "<unknown>";
 }
 
 function displayError(heading, content) {
