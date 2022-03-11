@@ -134,7 +134,8 @@ function requestItem() {
 		data: JSON.stringify(request_data),
 		success: function (data, status, xhr) {
 			console.log("Request call succeeded");
-			closeSearchResults();
+			closeDialog();
+			loadHistory();
 		},
 		error: function (xhr, status, error) {
 			console.log("Request call failed with status " + status + " and error: " + error);
