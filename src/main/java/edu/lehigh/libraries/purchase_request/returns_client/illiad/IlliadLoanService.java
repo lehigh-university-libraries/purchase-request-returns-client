@@ -107,7 +107,7 @@ public class IlliadLoanService implements LoanService {
     }
 
     private String getIlliadString(String key, JSONObject jsonObject){
-        if (jsonObject.has(key) && !jsonObject.isNull(key)) {
+        if (jsonObject.has(key) && !jsonObject.isNull(key) && jsonObject.getString(key).length() > 0) {
             return jsonObject.getString(key);
         }
         return null;
