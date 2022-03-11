@@ -9,7 +9,7 @@
 	</parent>
 	<artifactId>purchase-request-workflow-returns-client</artifactId>
 	<groupId>edu.lehigh.libraries</groupId>
-	<packaging>war</packaging>
+	<!-- <packaging>war</packaging> -->
 	<name>Returns Client for Purchase Request Workflow</name>
 	<description>Creates purchase requests based on return-slip barcodes</description>
 	<version>1.0-SNAPSHOT</version>
@@ -17,6 +17,7 @@
 		<main.basedir>${basedir}/../..</main.basedir>
 		<m2eclipse.wtp.contextRoot>/</m2eclipse.wtp.contextRoot>
 		<java.version>11</java.version>
+		<start-class>edu.lehigh.libraries.purchase_request.returns_client.ReturnsApplication</start-class>
 	</properties>
 
 	<dependencies>
