@@ -59,7 +59,7 @@ public class WorkflowService {
     public List<PurchaseRequest> getHistory(String reporterName) {
         UriComponentsBuilder builder = UriComponentsBuilder
             .fromHttpUrl(BASE_URL + "/search");
-        builder = builder.queryParam("reporterName", "\"" + reporterName + "\"");
+        builder = builder.queryParam("reporterName", reporterName);
         HttpEntity<String> requestEntity = new HttpEntity<String>(null, this.headers);
         ResponseEntity<PurchaseRequest[]> responseEntity = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, requestEntity, PurchaseRequest[].class);
         PurchaseRequest[] purchaseRequests = responseEntity.getBody();
