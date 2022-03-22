@@ -24,4 +24,6 @@ public class ReturnedItem {
 
     private String reporterName;
 
+    private String requesterUsername;
+
 }

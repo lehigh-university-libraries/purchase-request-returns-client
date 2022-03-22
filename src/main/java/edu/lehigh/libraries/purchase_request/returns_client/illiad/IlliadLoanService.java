@@ -33,6 +33,7 @@ public class IlliadLoanService implements LoanService {
     private final String ISBN_KEY = "ISSN"; // not a typo, it's ILLiad's schema.
     private final String TITLE_KEY = "LoanTitle";
     private final String CONTRIBUTOR_KEY = "LoanAuthor";
+    private final String REQUESTER_KEY = "Username";
 
     private final PropertiesConfig config;
 
@@ -102,6 +103,7 @@ public class IlliadLoanService implements LoanService {
         item.setBarcode(barcode);
         item.setTitle(getIlliadString(TITLE_KEY, jsonObject));
         item.setContributor(getIlliadString(CONTRIBUTOR_KEY, jsonObject));
+        item.setRequesterUsername(getIlliadString(REQUESTER_KEY, jsonObject));
         item.setCoverImage(coverImages.getCoverImage(item.getIsbn()));
         return item;
     }
