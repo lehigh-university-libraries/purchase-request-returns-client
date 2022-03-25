@@ -15,6 +15,7 @@ public class PropertiesConfig {
     
     private Database db;
     private Illiad illiad;
+    private Folio folio;
     private WorkflowServer workflowServer;
 
     /**
@@ -67,6 +68,36 @@ public class PropertiesConfig {
          */
         private String apiKey;
 
+    }
+
+    @Getter @Setter
+    public static class Folio {
+
+        /**
+         * FOLIO API username
+         */
+        private String username;
+
+        /**
+         * FOLIO API password
+         */
+        private String password;
+
+        /**
+         * FOLIO API tenant ID
+         */
+        private String tenantId;
+
+        /**
+         * FOLIO API base OKAPI url
+         */
+        private String okapiBaseUrl;
+
+        /**
+         * Regular expression pattern of the FOLIO identifier in a temporary record 
+         * representing a borrowed item.
+         */
+        private String barcodeRegex;
     }
 
     @Getter @Setter

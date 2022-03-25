@@ -78,7 +78,7 @@ function barcodeChanged() {
 function displaySearchResult(data) {
 	let dialog = $("#search_result_dialog");
 	$(".modal-card-title", dialog).text(data['title']);
-	$(".contributor", dialog).text(data['contributor']);
+	$(".contributor", dialog).text(format(data['contributor']));
 	$(".isbn", dialog).text(format(data['isbn']));
 	$("img", dialog).attr("src", data['coverImage']);
 	dialog.addClass("is-active");
