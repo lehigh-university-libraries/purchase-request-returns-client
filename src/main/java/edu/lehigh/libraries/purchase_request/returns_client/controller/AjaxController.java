@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpClientErrorException.BadRequest;
 import org.springframework.web.server.ResponseStatusException;
 
 import edu.lehigh.libraries.purchase_request.returns_client.model.BarcodeContainer;
@@ -86,18 +87,25 @@ public class AjaxController {
             workflowService.submitRequest(returnedItem);
         }
         catch (Exception e) {
-            log.error("Could not submit purchase to workflow server: " + returnedItem, e);
-            return ResponseEntity.internalServerError().build();
+            if (e instanceof BadRequest) {
+                // rethrow so ExceptionHandlers can deal with it
+                log.warn("Caught HTTP client exception, re=throwing", e);
+                throw e;
+            }
+            else {
+                log.error("Could not submit purchase to workflow server: " + returnedItem, e);
+                return ResponseEntity.internalServerError().build();
+            }
         }
 
         return new ResponseEntity<ReturnedItem>(returnedItem, HttpStatus.CREATED);
     }
 
-    @ResponseStatus(value=HttpStatus.BAD_REQUEST, reason="Constraint violation")
-    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(value=HttpStatus.BAD_REQUEST, reason="Problem with input")
+    @ExceptionHandler({ConstraintViolationException.class, BadRequest.class})
     public void error() {
         // no op
-        log.debug("found constraint violation");
+        log.debug("found problem with input");
     }
 
 }

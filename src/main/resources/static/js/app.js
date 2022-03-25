@@ -143,7 +143,7 @@ function requestItem() {
 				displayError("Item incomplete", xhr.responseJSON.message);
 			},
 			400: function(xhr, status, error) {
-				displayError("Invalid barcode", xhr.responseText);
+				displayError("Request failed due to something about the item", xhr.responseText);
 			},
 			500: function(xhr, status, error) {
 				displayError("Server error", xhr.responseText);
