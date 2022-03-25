@@ -42,9 +42,17 @@ $section-padding-desktop: 0 1.5rem 3rem;
 @import "../lib/bulma-0.9.3/bulma/sass/helpers/color.sass";
 @import "../lib/bulma-0.9.3/bulma/sass/helpers/flexbox.sass";
 
-#search_result_dialog .modal-card-body .columns.is-reversed-mobile {
-	@include until($desktop) {
-    	display: flex;
-    	flex-direction: column-reverse;
-  	}
+#search_result_dialog {
+
+	.modal-card-title {
+		flex-shrink: 1;
+	}
+
+	.modal-card-body .columns.is-reversed-mobile {
+		@include until($desktop) {
+			display: flex;
+			flex-direction: column-reverse;
+		}
+	}
+
 }
