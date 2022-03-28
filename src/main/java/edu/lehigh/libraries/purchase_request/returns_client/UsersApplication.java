@@ -41,7 +41,7 @@ public class UsersApplication implements CommandLineRunner {
             deleteUser(user);
         }
         else {
-            throw new IllegalArgumentException();
+            log.info("command not handled by this UsersApplication");
         }
     }
 
