@@ -70,7 +70,12 @@ function searchBarcode() {
 }
 
 function barcodeChanged() {
+	// force uppercase
+	$('#barcode_input').val($('#barcode_input').val().toUpperCase());
 	let barcode = $('#barcode_input').val();
+	
+	// enable/disable search button
+	barcode = barcode.toUpperCase();
 	let enable_search_button = (barcode != null && barcode.length > 0);
 	$("#search_button").prop("disabled", !enable_search_button);
 }
