@@ -2,6 +2,7 @@ package edu.lehigh.libraries.purchase_request.returns_client.controller;
 
 import java.util.List;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import edu.lehigh.libraries.purchase_request.returns_client.service.WorkflowServ
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@ConditionalOnWebApplication
 @Slf4j
 public class FragmentController {
     
