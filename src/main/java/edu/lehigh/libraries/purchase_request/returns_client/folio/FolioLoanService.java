@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import edu.lehigh.libraries.purchase_request.returns_client.config.PropertiesConfig;
 import edu.lehigh.libraries.purchase_request.returns_client.connection.FolioConnection;
 import edu.lehigh.libraries.purchase_request.returns_client.model.ReturnedItem;
+import edu.lehigh.libraries.purchase_request.returns_client.service.ItemNotFoundException;
 import edu.lehigh.libraries.purchase_request.returns_client.service.LoanService;
 import edu.lehigh.libraries.purchase_request.returns_client.service.LoanServiceException;
 import edu.lehigh.libraries.purchase_request.returns_client.service.ReturnedItemService;
@@ -59,7 +60,11 @@ public class FolioLoanService implements LoanService {
             responseObject = folioConnection.executeGet(url, queryString);
         }
         catch (Exception e) {
-            throw new LoanServiceException("Cannot find match for barcode " + barcode);
+            throw new LoanServiceException("Cannot search for barcode " + barcode);
+        }
+
+        if (responseObject.getInt("totalRecords") == 0) {
+            throw new ItemNotFoundException("No match found for barcode " + barcode);
         }
 
         ReturnedItem item = new ReturnedItem();
