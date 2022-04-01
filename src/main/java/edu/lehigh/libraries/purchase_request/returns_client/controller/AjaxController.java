@@ -81,6 +81,7 @@ public class AjaxController {
 
         String reporterName = authentication.getName();
         returnedItem.setReporterName(reporterName);
+        returnedItem.setRequesterComments(container.getComments());
         log.info("Reporter " + reporterName + " requesting purchase: " + returnedItem);
 
         try {

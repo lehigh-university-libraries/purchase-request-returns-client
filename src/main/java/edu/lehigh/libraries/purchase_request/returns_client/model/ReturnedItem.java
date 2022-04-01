@@ -26,4 +26,6 @@ public class ReturnedItem {
 
     private String requesterUsername;
 
+    private String requesterComments;
+
 }

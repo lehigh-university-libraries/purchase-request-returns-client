@@ -9,7 +9,7 @@ $(document).ready(function () {
 
 function initListeners() {
 	// search form submitted
-	$("form").on("submit", function (event) {
+	$("#barcode_form").on("submit", function (event) {
 		searchBarcode();
 		event.preventDefault();
 	});
@@ -23,6 +23,12 @@ function initListeners() {
 }
 
 function initDialogListeners() {
+	// request form submitted
+	$("#search_result_form").on("submit", function (event) {
+		$("#request_item_button").click();
+		event.preventDefault();
+	});
+
 	$("#request_item_button").on("click", function (event) {
 		requestItem();
 	});
@@ -87,7 +93,7 @@ function displaySearchResult(data) {
 	$(".isbn", dialog).text(format(data['isbn']));
 	$("img", dialog).attr("src", data['coverImage']);
 	dialog.addClass("is-active");
-	$("#request_item_button", dialog).focus();
+	$("#comments_input", dialog).focus();
 	console.log("displayed result");
 }
 
@@ -115,6 +121,8 @@ function closeDialog() {
 	$("#barcode_input").focus();
 
 	$("#search_result_dialog").removeClass("is-active");
+	$("#comments_input").val("");
+
 	$("#error_dialog").removeClass("is-active");
 	let button = $("#request_item_button");
 	button.prop("disabled", false);
@@ -126,8 +134,10 @@ function requestItem() {
 	button.prop("disabled", true);
 	button.html(button.data("disabled-text"));
 
+	let comments = $("#comments_input").val();
 	let request_data = {
 		"barcode": $('#barcode_input').val(),
+		"comments": (comments.length > 0) ? comments : null
 	};
 	$.ajax({
 		url: document.location.origin + "/request",

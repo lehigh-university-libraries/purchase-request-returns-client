@@ -12,11 +12,27 @@ $fullhd-enabled: false;
 
 // $table-cell-border: none;
 
-#search_result_details {
-	td, th {
-		border: none;
+#history_table {
+
+	.comments {
+		text-align: center;
+	}
+
+}
+
+#search_result_dialog {
+
+	#search_result_details {
+		td, th {
+			border: none;
+		}
+	}
+	
+	.field {
+		margin: 0 0.75em;
 	}
 }
+
 
 // @import "../lib/bulma-0.9.3/bulma/bulma.sass";
 @import "../lib/bulma-0.9.3/bulma/sass/utilities/_all.sass";

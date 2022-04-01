@@ -22,6 +22,8 @@ public class PurchaseRequest {
 
     private String isbn;
 
+    private String requesterComments;
+
     private String clientName;
 
     private String reporterName;

@@ -17,4 +17,6 @@ public class BarcodeContainer {
     @NotNull
     @Pattern(regexp = BARCODE_PATTERN)
     private String barcode;
+
+    private String comments;
 }
