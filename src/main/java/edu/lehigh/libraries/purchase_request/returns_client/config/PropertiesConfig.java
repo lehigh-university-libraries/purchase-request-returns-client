@@ -1,17 +1,26 @@
 package edu.lehigh.libraries.purchase_request.returns_client.config;
 
+import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.validation.annotation.Validated;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Configuration
 @ConfigurationProperties(prefix="returns-client")
+@Validated
 @EnableAsync
 @Getter @Setter
 public class PropertiesConfig {
+
+    @AssertTrue
+    @NotNull
+    private Boolean enabled;
     
     private Database db;
     private Illiad illiad;
