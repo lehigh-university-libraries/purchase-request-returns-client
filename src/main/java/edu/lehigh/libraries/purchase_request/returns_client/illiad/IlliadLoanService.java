@@ -99,7 +99,7 @@ public class IlliadLoanService implements LoanService {
         JSONObject jsonObject = new JSONObject(responseString);
 
         ReturnedItem item = new ReturnedItem();
-        item.setIsbn(getIlliadString(ISBN_KEY, jsonObject));
+        item.setIsbn(cleanIsbn(getIlliadString(ISBN_KEY, jsonObject)));
         item.setBarcode(barcode);
         item.setTitle(getIlliadString(TITLE_KEY, jsonObject));
         item.setContributor(getIlliadString(CONTRIBUTOR_KEY, jsonObject));
@@ -113,6 +113,17 @@ public class IlliadLoanService implements LoanService {
             return jsonObject.getString(key);
         }
         return null;
+    }
+
+    private String cleanIsbn(String rawIsbn) {
+        // clear any format comments after the number
+        int spaceIndex = rawIsbn.indexOf(' ');
+        if (spaceIndex > -1) {
+            return rawIsbn.substring(0, spaceIndex);
+        }
+        else {
+            return rawIsbn;
+        }
     }
 
 }
