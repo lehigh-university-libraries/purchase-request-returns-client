@@ -116,6 +116,10 @@ public class IlliadLoanService implements LoanService {
     }
 
     private String cleanIsbn(String rawIsbn) {
+        if (rawIsbn == null) {
+            return null;
+        }
+        
         // clear any format comments after the number
         int spaceIndex = rawIsbn.indexOf(' ');
         if (spaceIndex > -1) {
