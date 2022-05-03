@@ -1,10 +1,12 @@
 package edu.lehigh.libraries.purchase_request.returns_client.security;
 
 import edu.lehigh.libraries.purchase_request.returns_client.config.PropertiesConfig;
+import edu.lehigh.libraries.purchase_request.returns_client.config.PropertiesConfig.AuthenticationSource;
 
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -31,13 +33,15 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-		final boolean disableSecurity = properties.isDisableSecurity();
-		if (disableSecurity) {
-			log.warn("Security is DISABLED");
+		if (properties.isDisableSecurity() ||
+			properties.getAuthentication() == AuthenticationSource.external ) {
+			log.warn("Security is DISABLED, expecting external authentication");
 			httpSecurity
 					.csrf().disable()
 					.httpBasic().disable();
-		} else {
+		}
+		else {
+			log.info("Using database authentication.");
 			httpSecurity
 					.csrf().disable()
 					.authorizeRequests().anyRequest().authenticated().and()
@@ -49,6 +53,7 @@ public class SecurityConfig {
 	}
 
 	@Bean
+	@ConditionalOnProperty(name="returns-client.authentication", havingValue="database")
 	public UserDetailsService userDetailsService() {
 		return new UserDetailsService() {
 			@Autowired
@@ -69,6 +74,7 @@ public class SecurityConfig {
 	}
 
 	@Bean
+	@ConditionalOnProperty(name="returns-client.authentication", havingValue="database")
 	public DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 		authProvider.setUserDetailsService(userDetailsService());

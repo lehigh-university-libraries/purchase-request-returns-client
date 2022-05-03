@@ -22,6 +22,11 @@ public class PropertiesConfig {
     @NotNull
     private Boolean enabled;
     
+    /**
+     * Source of authentication.  "external" (via Apache) or "database".
+     */
+    private AuthenticationSource authentication;
+
     private Database db;
     private Illiad illiad;
     private Folio folio;
@@ -31,6 +36,10 @@ public class PropertiesConfig {
      * Disables all security.  DO NOT USE IN PRODUCTION.
      */
     private boolean disableSecurity = false;
+
+    public enum AuthenticationSource {
+        database, external;
+    }
 
     @Getter @Setter
     /**

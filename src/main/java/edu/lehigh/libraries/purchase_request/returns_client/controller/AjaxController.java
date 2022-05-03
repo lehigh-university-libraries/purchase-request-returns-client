@@ -1,5 +1,7 @@
 package edu.lehigh.libraries.purchase_request.returns_client.controller;
 
+import java.util.Map;
+
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -74,12 +77,14 @@ public class AjaxController {
     }
 
     @PostMapping("/request")
-    ResponseEntity<ReturnedItem> requestItem(@RequestBody @Valid BarcodeContainer container , Authentication authentication) {
+    ResponseEntity<ReturnedItem> requestItem(@RequestBody @Valid BarcodeContainer container, 
+        Authentication authentication, @RequestHeader Map<String, String> headers) {
+            
         String barcode = container.getBarcode();
         log.info("Request: POST /request " + barcode);
         ReturnedItem returnedItem = findItem(barcode);
 
-        String reporterName = authentication.getName();
+        String reporterName = ControllerUtil.getReporterName(authentication, headers);
         returnedItem.setReporterName(reporterName);
         returnedItem.setRequesterComments(container.getComments());
         log.info("Reporter " + reporterName + " requesting purchase: " + returnedItem);
