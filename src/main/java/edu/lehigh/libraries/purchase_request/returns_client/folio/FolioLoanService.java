@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.json.JSONObject;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 import edu.lehigh.libraries.purchase_request.returns_client.config.PropertiesConfig;
@@ -17,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
+@ConditionalOnProperty(name="returns-client.folio.okapiBaseUrl")
 public class FolioLoanService implements LoanService {
     
     private static final String INSTANCES_PATH = "/inventory/instances";
@@ -35,7 +37,7 @@ public class FolioLoanService implements LoanService {
         this.folioConnection = new FolioConnection(config);
 
         service.addLoanService(this);
-        log.debug("FolioLoanService started.");
+        log.info("FolioLoanService started.");
     }
 
     @Override

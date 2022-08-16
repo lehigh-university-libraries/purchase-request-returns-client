@@ -11,6 +11,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 import edu.lehigh.libraries.purchase_request.returns_client.config.PropertiesConfig;
@@ -23,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
+@ConditionalOnProperty(name="returns-client.illiad.base-url")
 public class IlliadLoanService implements LoanService {
 
     private static final String API_KEY_HEADER = "ApiKey";
@@ -46,6 +48,7 @@ public class IlliadLoanService implements LoanService {
         initConnection();
 
         service.addLoanService(this);
+        log.info("IlliadLoanService started.");
     }
 
     private void initConnection() {
