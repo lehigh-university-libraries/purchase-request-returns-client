@@ -29,8 +29,7 @@ public class PersistanceReShareConfig extends PersistenceConfig {
   @Bean(name = "reshareEntityManager")
   @Override
   public LocalContainerEntityManagerFactoryBean entityManager() {
-      // refactor to class.getpackagename?
-      String packageName = "edu.lehigh.libraries.purchase_request.returns_client.reshare";
+      String packageName = PersistanceReShareConfig.class.getPackageName();
       return super.entityManager(packageName);
   }
 

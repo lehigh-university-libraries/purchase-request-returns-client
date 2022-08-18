@@ -32,7 +32,7 @@ public class PersistenceUserConfig extends PersistenceConfig {
     @Primary
     @Override
     public LocalContainerEntityManagerFactoryBean entityManager() {
-        String packageName = "edu.lehigh.libraries.purchase_request.returns_client.security";
+        String packageName = PersistenceUserConfig.class.getPackageName();
         return super.entityManager(packageName);
     }
 
