@@ -10,13 +10,11 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 import edu.lehigh.libraries.purchase_request.returns_client.config.PropertiesConfig;
 import edu.lehigh.libraries.purchase_request.returns_client.model.ReturnedItem;
-import edu.lehigh.libraries.purchase_request.returns_client.service.CoverImagesService;
 import edu.lehigh.libraries.purchase_request.returns_client.service.LoanService;
 import edu.lehigh.libraries.purchase_request.returns_client.service.LoanServiceException;
 import edu.lehigh.libraries.purchase_request.returns_client.service.ReturnedItemService;
@@ -28,9 +26,6 @@ import lombok.extern.slf4j.Slf4j;
 public class IlliadLoanService implements LoanService {
 
     private static final String API_KEY_HEADER = "ApiKey";
-
-    @Autowired
-    private CoverImagesService coverImages;
 
     private final String ISBN_KEY = "ISSN"; // not a typo, it's ILLiad's schema.
     private final String TITLE_KEY = "LoanTitle";
@@ -107,7 +102,6 @@ public class IlliadLoanService implements LoanService {
         item.setTitle(getIlliadString(TITLE_KEY, jsonObject));
         item.setContributor(getIlliadString(CONTRIBUTOR_KEY, jsonObject));
         item.setRequesterUsername(getIlliadString(REQUESTER_KEY, jsonObject));
-        item.setCoverImage(coverImages.getCoverImage(item.getIsbn()));
         return item;
     }
 

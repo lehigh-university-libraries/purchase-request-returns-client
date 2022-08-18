@@ -3,6 +3,7 @@ package edu.lehigh.libraries.purchase_request.returns_client.service;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -13,6 +14,9 @@ import edu.lehigh.libraries.purchase_request.returns_client.model.ReturnedItem;
 public class ReturnedItemService {
 
 	List<LoanService> loanServices;
+
+    @Autowired
+    private CoverImagesService coverImages;
 
 	public ReturnedItemService() {
 		loanServices = new LinkedList<LoanService>();
@@ -32,6 +36,7 @@ public class ReturnedItemService {
 			if (service.handlesBarcode(barcode)) {
 				ReturnedItem item = service.getReturnedItem(barcode);
 				checkItemSufficient(item);
+				enrichItem(item);
 				return item;
 			}
 		}
@@ -41,6 +46,13 @@ public class ReturnedItemService {
 	private void checkItemSufficient(ReturnedItem item) throws IncompleteItemException {
 		if (item.getTitle() == null) {
 			throw new IncompleteItemException("No title found for item.");
+		}
+	}
+
+	private void enrichItem(ReturnedItem item) {
+		// Add cover image
+		if (item.getIsbn() != null) {
+			item.setCoverImage(coverImages.getCoverImage(item.getIsbn()));
 		}
 	}
 
