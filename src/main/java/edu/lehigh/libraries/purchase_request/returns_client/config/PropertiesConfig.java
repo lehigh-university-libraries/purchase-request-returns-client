@@ -30,6 +30,7 @@ public class PropertiesConfig {
     private Database db;
     private Illiad illiad;
     private Folio folio;
+    private ReShare reShare;
     private WorkflowServer workflowServer;
 
     /**
@@ -113,6 +114,16 @@ public class PropertiesConfig {
 
         /**
          * Regular expression pattern of the FOLIO identifier in a temporary record 
+         * representing a borrowed item.
+         */
+        private String barcodeRegex;
+    }
+
+    @Getter @Setter
+    public static class ReShare {
+
+        /**
+         * Regular expression pattern of the barcode identifier in a ReShare record 
          * representing a borrowed item.
          */
         private String barcodeRegex;
