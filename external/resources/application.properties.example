@@ -1,0 +1,77 @@
+# *** This file contains example configuration properties for application.properties.  See README.md. *** 
+
+
+# General
+
+returns-client.enabled=true
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.database-platform=org.hibernate.dialect.MySQL5InnoDBDialect
+spring.jpa.show-sql=true
+hibernate.dialect=org.hibernate.dialect.H2Dialect
+
+
+# Security / Authentication
+
+returns-client.disable-security=false
+
+
+# External Authentication
+
+returns-client.authentication=external
+
+
+# Internal Authentication
+
+returns-client.authentication=database
+
+returns-client.db.host=some_database_host
+returns-client.db.name=some_database_name
+returns-client.db.username=some_admin_username
+returns-client.db.password=abc123
+
+spring.datasource.jdbcUrl=jdbc:mysql://${returns-client.db.host:localhost}:3306/${returns-client.db.name}
+spring.datasource.username=${returns-client.db.username}
+spring.datasource.password=${returns-client.db.password}
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+
+
+# ILLiad
+
+returns-client.illiad.base-url=https://illiad.someuniversity.edu/illiadwebplatform
+returns-client.illiad.api-key=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
+
+
+# FOLIO
+
+returns-client.folio.okapiBaseUrl=https://subdomain-okapi.folio.indexdata.com
+returns-client.folio.username=folio_usernanme
+returns-client.folio.password=abc123
+returns-client.folio.tenantId=SOMEID
+returns-client.folio.barcodeRegex=^ABC-[0-9]+$
+
+
+# ReShare
+
+returns-client.reshare.db.host=some_database_host
+returns-client.reshare.db.name=some_database_name
+returns-client.reshare.db.username=some_admin_username
+returns-client.reshare.db.password=abc123
+returns-client.reshare.barcodeRegex=^ABC-[0-9]+$
+
+spring.reshare-datasource.jdbcUrl=jdbc:mysql://${returns-client.reshare.db.host:localhost}:3306/${returns-client.reshare.db.name}
+spring.reshare-datasource.username=${returns-client.reshare.db.username}
+spring.reshare-datasource.password=${returns-client.reshare.db.password}
+spring.reshare-datasource.driver-class-name=com.mysql.jdbc.Driver
+
+
+# Workflow Proxy Server
+
+returns-client.workflow-server.username=workflow_username
+returns-client.workflow-server.password=abc123
+returns-client.workflow-server.base-url=https://hostname.someuniversity.edu/workflow
+
+
+# Debugging
+
+logging.level.edu.lehigh.libraries.purchase_request=DEBUG
