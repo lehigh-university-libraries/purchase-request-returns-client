@@ -2,6 +2,7 @@ package edu.lehigh.libraries.purchase_request.returns_client.security;
 
 import javax.sql.DataSource;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +19,7 @@ import edu.lehigh.libraries.purchase_request.returns_client.config.PersistenceCo
   basePackages = "edu.lehigh.libraries.purchase_request.returns_client.security",
   entityManagerFactoryRef = "userEntityManager",
   transactionManagerRef = "userTransactionManager")
+@ConditionalOnProperty(name = "returns-client.authentication", havingValue = "database")
 public class PersistenceUserConfig extends PersistenceConfig {
 
     @Primary
