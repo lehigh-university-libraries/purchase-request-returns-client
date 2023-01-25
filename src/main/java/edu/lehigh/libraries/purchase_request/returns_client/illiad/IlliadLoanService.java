@@ -116,6 +116,9 @@ public class IlliadLoanService implements LoanService {
         if (rawIsbn == null) {
             return null;
         }
+
+        // trim whitespace first
+        rawIsbn = rawIsbn.trim();
         
         // clear any format comments after the number
         int spaceIndex = rawIsbn.indexOf(' ');
