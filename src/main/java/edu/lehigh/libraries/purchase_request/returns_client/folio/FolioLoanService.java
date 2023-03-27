@@ -62,7 +62,7 @@ public class FolioLoanService implements LoanService {
             responseObject = folioConnection.executeGet(url, queryString);
         }
         catch (Exception e) {
-            throw new LoanServiceException("Cannot search for barcode " + barcode);
+            throw new LoanServiceException("Cannot search for barcode " + barcode + "; " + e.getMessage());
         }
 
         if (responseObject.getInt("totalRecords") == 0) {
