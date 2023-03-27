@@ -132,10 +132,14 @@ For connecting to a database of ReShare transaction records.
  
 For connecting to the FOLIO API.
 
+Note: The specified FOLIO user account should have the following permissions:
+
+* Inventory: View instances, holdings, and items
+
 | Property | Description | Required |
 | -- | -- | -- |
 | returns-client.folio.okapiBaseUrl | Base URL for FOLIO OKAPI API calls. Include this property to enable FOLIO as a loan source. | N |
-| returns-client.folio.username | Username for the FOLIO API. | If `returns-client.folio.okapiBaseUrl` is specified. |
+| returns-client.folio.username | Username for the FOLIO API. See permissions required above. | If `returns-client.folio.okapiBaseUrl` is specified. |
 | returns-client.folio.password | Password for the FOLIO API. | If `returns-client.folio.okapiBaseUrl` is specified. |
 | returns-client.folio.tenantId | Tenant ID for the FOLIO server environment. | If `returns-client.folio.okapiBaseUrl` is specified. |
 | returns-client.folio.barcodeRegex | Regular expression matching a FOLIO barcode label.  Generally some letters followed by numbers. | If `returns-client.folio.okapiBaseUrl` is specified. |
