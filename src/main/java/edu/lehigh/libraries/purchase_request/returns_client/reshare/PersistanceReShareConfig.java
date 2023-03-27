@@ -2,6 +2,7 @@ package edu.lehigh.libraries.purchase_request.returns_client.reshare;
 
 import javax.sql.DataSource;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +14,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import edu.lehigh.libraries.purchase_request.returns_client.config.PersistenceConfig;
 
 @Configuration
+@ConditionalOnProperty(name="returns-client.reshare.db.host")
 @EnableJpaRepositories(
   basePackages = "edu.lehigh.libraries.purchase_request.returns_client.reshare",
   entityManagerFactoryRef = "reshareEntityManager",
