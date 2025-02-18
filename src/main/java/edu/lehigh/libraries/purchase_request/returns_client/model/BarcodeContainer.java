@@ -19,4 +19,6 @@ public class BarcodeContainer {
     private String barcode;
 
     private String comments;
+
+    private String requestType;
 }

@@ -154,6 +154,14 @@ For connecting to the Purchase Request Workflow Proxy Server via its API.
 | returns-client.workflow-server.password | API password | Y |
 | returns-client.workflow-server.base-url | API base URL | Y |
 
+### UI Section
+
+For UI configuration.
+
+| Property | Description | Required |
+| -- | -- | -- |
+| returns-client.fontawesome-url | URL to FontAwesome library.  Some Pro (non-free) icons are used in the UI.  If you leave this blank, those icons will just be hidden. | N |
+
 ### Debugging
 
 Optional properties.  See other [Spring Boot logging properties](https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.logging) as well.

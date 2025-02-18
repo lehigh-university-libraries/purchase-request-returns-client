@@ -71,4 +71,14 @@ $section-padding-desktop: 0 1.5rem 3rem;
 		}
 	}
 
+	.modal-card-foot {
+		button.submit {
+			min-width: 200px;
+		}
+	
+		.icon {
+			font-size: 150%;
+		}
+	}
+
 }

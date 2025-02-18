@@ -28,4 +28,8 @@ public class ReturnedItem {
 
     private String requesterComments;
 
+    private String requestType;
+
+    private String destination;
+
 }

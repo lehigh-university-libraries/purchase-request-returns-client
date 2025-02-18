@@ -72,6 +72,11 @@ returns-client.workflow-server.password=abc123
 returns-client.workflow-server.base-url=https://hostname.someuniversity.edu/workflow
 
 
+# UI
+
+#returns-client.fontawesome-url=https://kit.fontawesome.com/AAAAAA.js
+
+
 # Debugging
 
 logging.level.edu.lehigh.libraries.purchase_request=DEBUG

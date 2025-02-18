@@ -23,14 +23,11 @@ function initListeners() {
 }
 
 function initDialogListeners() {
-	// request form submitted
-	$("#search_result_form").on("submit", function (event) {
-		$("#request_item_button").click();
-		event.preventDefault();
-	});
-
 	$("#request_item_button").on("click", function (event) {
-		requestItem();
+		submitItem("Request", this);
+	});
+	$("#suggest_item_button").on("click", function (event) {
+		submitItem("Suggestion", this);
 	});
 
 	// various methods of closing the search dialog
@@ -91,6 +88,13 @@ function displaySearchResult(data) {
 	$(".modal-card-title", dialog).text(data['title']);
 	$(".contributor", dialog).text(format(data['contributor']));
 	$(".isbn", dialog).text(format(data['isbn']));
+	if (data['requesterComments']) {
+		$(".note", dialog).text(format(data['requesterComments']));
+		$(".note_row").show();
+	}
+	else {
+		$(".note_row").hide();
+	}
 	$("img", dialog).attr("src", data['coverImage']);
 	dialog.addClass("is-active");
 	$("#comments_input", dialog).focus();
@@ -124,18 +128,24 @@ function closeDialog() {
 	$("#comments_input").val("");
 
 	$("#error_dialog").removeClass("is-active");
-	let button = $("#request_item_button");
-	button.prop("disabled", false);
-	button.html(button.data("enabled-text"));
+	$("button.submit").each(function (index) {
+		button = $(this);
+		button.prop("disabled", false);
+		button.html(button.data("enabled-text"));
+	});
 }
 
-function requestItem() {
-	let button = $("#request_item_button");
-	button.prop("disabled", true);
-	button.html(button.data("disabled-text"));
+function submitItem(requestType, submitButton) {
+	$(submitButton).html($(submitButton).data("disabled-text"));
+	$("button.submit").each(function (index) {
+		button = $(this);
+		button.prop("disabled", true);
+	});
+
 
 	let comments = $("#comments_input").val();
 	let request_data = {
+		"requestType": requestType,
 		"barcode": $('#barcode_input').val(),
 		"comments": (comments.length > 0) ? comments : null
 	};

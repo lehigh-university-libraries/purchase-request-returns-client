@@ -86,7 +86,19 @@ public class AjaxController {
 
         String reporterName = ControllerUtil.getReporterName(authentication, headers);
         returnedItem.setReporterName(reporterName);
-        returnedItem.setRequesterComments(container.getComments());
+
+        if (container.getComments() != null) {
+            String comments = container.getComments();
+            if (returnedItem.getRequesterComments() != null) {
+                comments = comments + "\n" + returnedItem.getRequesterComments();
+            }
+            returnedItem.setRequesterComments(comments);
+        }
+
+        returnedItem.setRequestType(container.getRequestType());
+        if ("Request".equals(returnedItem.getRequestType())) {
+            returnedItem.setDestination("On Hold for Requester");
+        }
         log.info("Reporter " + reporterName + " requesting purchase: " + returnedItem);
 
         try {

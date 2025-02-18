@@ -32,6 +32,7 @@ public class PropertiesConfig {
     private Folio folio;
     private ReShare reShare;
     private WorkflowServer workflowServer;
+    private UI ui;
 
     /**
      * Disables all security.  DO NOT USE IN PRODUCTION.
@@ -146,6 +147,16 @@ public class PropertiesConfig {
          * Workflow Proxy Server password
          */
         private String password;
+
+    }
+
+    @Getter @Setter
+    public static class UI {
+
+        /**
+         * FontAwesome library URL
+         */
+        private String fontAwesomeUrl;
 
     }
 

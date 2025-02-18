@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../resources/css/styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="../resources/js/app.js"></script>
+    <script th:if="${fontawesomeUrl}" th:attr="src=${fontawesomeUrl}" crossorigin="anonymous"></script>
 </head>
 
 <body class=>
@@ -120,6 +121,10 @@
                                     <th scope="row">ISBN:</th>
                                     <td><span class="isbn"></span></td>
                                 </tr>
+                                <tr class="note_row">
+                                    <th scope="row">Note:</th>
+                                    <td><span class="note"></span></td>
+                                </tr>
                             </tbody>
                         </table>
                         <form id="search_result_form" action="">
@@ -135,10 +140,22 @@
             </section>
             <footer class="modal-card-foot">
                 <button id="request_item_button" 
-                    class="button is-success" 
+                    class="button is-success submit" 
                     data-enabled-text="Request Item" 
-                    data-disabled-text="Requesting...">
-                    Request Item
+                    data-disabled-text="Submitting Request...">
+                    <span class="icon">
+                        <i class="fa-light fa-cart-shopping-fast"></i>
+                    </span>
+                    <span>Request Item</span>
+                </button>
+                <button id="suggest_item_button" 
+                    class="button is-success submit" 
+                    data-enabled-text="Suggest Item" 
+                    data-disabled-text="Submitting Suggestion...">
+                    <span class="icon">
+                        <i class="fa-light fa-comment-question"></i>
+                    </span>
+                    <span>Suggest Item</span>
                 </button>
                 <button class="button cancel_button">Cancel</button>
             </footer>
