@@ -1,14 +1,14 @@
 package edu.lehigh.libraries.purchase_request.returns_client.illiad;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpHeaders;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.client.methods.RequestBuilder;
-import org.apache.http.entity.ContentType;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.util.EntityUtils;
+import java.io.IOException;
+
+import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
+import org.apache.hc.client5.http.protocol.HttpClientContext;
+import org.apache.hc.core5.http.ContentType;
+import org.apache.hc.core5.http.HttpHeaders;
+import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.json.JSONObject;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
@@ -75,22 +75,20 @@ public class IlliadLoanService implements LoanService {
     @Override
     public ReturnedItem getReturnedItem(String barcode) throws LoanServiceException {
         String url = BASE_URL + "/Transaction/" + barcode;
-        HttpUriRequest getRequest = RequestBuilder.get()
-            .setUri(url)
-            .setHeader(HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType())
-            .setHeader(HttpHeaders.ACCEPT, "application/json; version=1") // API requires "1" not 1.0, 1.1
-            .setHeader(API_KEY_HEADER, config.getIlliad().getApiKey())
-            .build();
+        HttpGet getRequest = new HttpGet(url);
+        getRequest.setHeader(HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType());
+        getRequest.setHeader(HttpHeaders.ACCEPT, "application/json; version=1"); // API requires "1" not 1.0, 1.1
+        getRequest.setHeader(API_KEY_HEADER, config.getIlliad().getApiKey());
 
-        CloseableHttpResponse response;
         String responseString;
         try {
-            response = client.execute(getRequest);
-            HttpEntity entity = response.getEntity();
-            responseString = EntityUtils.toString(entity);
-            log.debug("got response string: " + responseString);
+            responseString = client.execute(getRequest, HttpClientContext.create(), response -> {
+                String body = EntityUtils.toString(response.getEntity());
+                log.debug("got response string: " + body);
+                return body;
+            });
         }
-        catch (Exception e) {
+        catch (IOException e) {
             log.error("Could not get book data from ILLiad.", e);
             throw new LoanServiceException("Could not get book data from ILLiad.");
         }

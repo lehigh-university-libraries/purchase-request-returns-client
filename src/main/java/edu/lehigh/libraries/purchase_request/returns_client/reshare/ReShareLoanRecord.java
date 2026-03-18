@@ -1,9 +1,9 @@
 package edu.lehigh.libraries.purchase_request.returns_client.reshare;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import edu.lehigh.libraries.purchase_request.returns_client.model.ReturnedItem;
 import lombok.Getter;

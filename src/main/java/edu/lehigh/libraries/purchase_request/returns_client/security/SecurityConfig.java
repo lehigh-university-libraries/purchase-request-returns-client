@@ -37,17 +37,16 @@ public class SecurityConfig {
 			properties.getAuthentication() == AuthenticationSource.external ) {
 			log.warn("Security is DISABLED, expecting external authentication");
 			httpSecurity
-					.csrf().disable()
-					.httpBasic().disable();
+					.csrf(csrf -> csrf.disable())
+					.httpBasic(httpBasic -> httpBasic.disable());
 		}
 		else {
 			log.info("Using database authentication.");
 			httpSecurity
-					.csrf().disable()
-					.authorizeRequests().anyRequest().authenticated().and()
-					.formLogin().permitAll()
-					.and()
-					.logout().invalidateHttpSession(true).clearAuthentication(true).permitAll();
+					.csrf(csrf -> csrf.disable())
+					.authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+					.formLogin(form -> form.permitAll())
+					.logout(logout -> logout.invalidateHttpSession(true).clearAuthentication(true).permitAll());
 		}
 		return httpSecurity.build();
 	}
@@ -76,8 +75,7 @@ public class SecurityConfig {
 	@Bean
 	@ConditionalOnProperty(name="returns-client.authentication", havingValue="database")
 	public DaoAuthenticationProvider authenticationProvider() {
-		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-		authProvider.setUserDetailsService(userDetailsService());
+		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailsService());
 		authProvider.setPasswordEncoder(passwordEncoder());
 		return authProvider;
 	}
