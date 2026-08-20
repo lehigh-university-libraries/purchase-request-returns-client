@@ -73,7 +73,7 @@ In the project home directory, run:
 
 ## Dependencies
 
-- Java SE.  Tested on Java SE 11 (LTE).
+- Java SE.  Tested on Java SE 21 (LTS).
 - Workflow Proxy Server
 - One or more [supported loan systems](#supported-loan-systems).
 
