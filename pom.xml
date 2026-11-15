@@ -5,7 +5,7 @@
 		<!-- Your own application should inherit from spring-boot-starter-parent -->
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>4.1.0</version>
+		<version>4.1.2</version>
 	</parent>
 	<artifactId>purchase-request-returns-client</artifactId>
 	<groupId>edu.lehigh.libraries</groupId>
@@ -87,7 +87,7 @@
 			<groupId>org.apache.httpcomponents.client5</groupId>
 			<artifactId>httpclient5</artifactId>
 			<!-- Spring Boot 4.1.0 manages 5.6.1, which is within the CVE-2026-71290 (critical) affected range; override until the parent bumps past 5.6.3 -->
-			<version>5.6.4</version>
+			<version>5.6.5</version>
 		</dependency>
 		<dependency>
 			<groupId>org.json</groupId>
